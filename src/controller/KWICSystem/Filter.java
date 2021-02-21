@@ -1,8 +1,7 @@
-package controller;
+package controller.KWICSystem;
 
 import model.Lines;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;

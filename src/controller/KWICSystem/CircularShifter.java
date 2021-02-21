@@ -1,32 +1,24 @@
-package controller;
+package controller.KWICSystem;
 
 import model.Lines;
 
-import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * This is concrete implementation of the PipeFilter interface.
- * It uses the GrepReader we defined elsewhere to do the filtering.
  **/
 public class CircularShifter extends Filter {
 
-    /**
-     * Create a GrepFilter, will search its input for the specified pattern
-     * and send the results to the specified Pipe.
-     **/
+
     public CircularShifter(Pipe sink)
             throws IOException {
         super(sink);
     }
 
     /**
-     * Do the filtering, using a BufferedReader to filter lines read from
-     * the Reader, and using a PrintWriter to send those lines back out
-     * to the Writer.
+     * Do the filtering, using a custom-defined arraylist (lines) to accept lines read from
+     * the Reader, circulating each line, and then sending those lines back out to the Writer.
      **/
     public void filter(Reader in, Writer out) throws IOException {
 

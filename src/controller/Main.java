@@ -1,5 +1,7 @@
 package controller;
 
+import controller.KWICSystem.*;
+
 import java.io.*;
 
 public class Main {
@@ -7,7 +9,8 @@ public class Main {
     static String filePath = "input.txt";
 
     public static void main(String[] args) throws IOException {
-        test(filePath);
+        //test(filePath);
+        PipeAndFilterController.transform(filePath);
     }
 
     // This is the test programs for our pipe-and-filter infrastructure

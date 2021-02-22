@@ -1,12 +1,10 @@
-package model;
+package controller.KWICSystem;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Lines extends ArrayList<String> {
 

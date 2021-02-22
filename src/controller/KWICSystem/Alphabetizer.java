@@ -1,5 +1,7 @@
 package controller.KWICSystem;
 
+import controller.Main;
+
 import java.io.*;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,6 +24,8 @@ public class Alphabetizer extends Filter {
         lines.readLines(in);
 
         Collections.sort(lines, new StringComparator());
+
+        Main.strings[2] = String.join("\n", lines);
 
         lines.write(out);
     }

@@ -4,10 +4,10 @@ import java.io.*;
 
 public class PipeAndFilterController {
 
-    public static void transform (String filePath) throws IOException {
+    public static void transform (String inputString) throws IOException {
 
         //Create a Reader to read data from, and a Writer to send data to
-        Reader in = new BufferedReader(new FileReader(filePath));
+        Reader in = new BufferedReader(new StringReader(inputString));
         Writer out = new BufferedWriter(new OutputStreamWriter(System.out));
 
         // Now build up the pipe, starting with the sink, and working backwards,

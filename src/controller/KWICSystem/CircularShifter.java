@@ -1,6 +1,6 @@
 package controller.KWICSystem;
 
-import model.Lines;
+import controller.Main;
 
 import java.io.*;
 import java.util.Collections;
@@ -23,8 +23,9 @@ public class CircularShifter extends Filter {
     public void filter(Reader in, Writer out) throws IOException {
 
         lines.readLines(in);
-        Lines cicularshiftedLines = circularShift(lines);
-        cicularshiftedLines.write(out);
+        Lines circulariseLines = circularShift(lines);
+        circulariseLines.write(out);
+        Main.strings[1] = String.join("\n", circulariseLines);
     }
 
     protected Lines  circularShift(Lines lines) throws IOException {

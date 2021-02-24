@@ -10,11 +10,9 @@ import java.util.ArrayList;
 public class Main {
 
     static String inputString = "This is a test";
-    public static String[] strings = {"", "", ""};
 
     public static void main(String[] args) throws IOException {
-        //PipeAndFilterController.transform(inputString);
-
+        //Pipeline.transform(inputString);
         MyWindow win = new MyWindow();
         win.init();
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

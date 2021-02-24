@@ -10,9 +10,9 @@ import java.util.Comparator;
  * This is another implementation of Filter.  It implements the
  * sorting of lines according to a custom-defined sorting algorithm.
  **/
-public class Alphabetizer extends Filter {
+public class Sorter extends Filter {
     /** Constructor just calls superclass */
-    public Alphabetizer(Pipe sink) throws IOException { super(sink); }
+    public Sorter(Pipe sink) throws IOException { super(sink); }
 
     /**
      * Do the filtering, using a custom-defined arraylist (lines) to accept lines read from
@@ -24,8 +24,6 @@ public class Alphabetizer extends Filter {
         lines.readLines(in);
 
         Collections.sort(lines, new StringComparator());
-
-        Main.strings[2] = String.join("\n", lines);
 
         lines.write(out);
     }

@@ -8,10 +8,10 @@ import java.util.Collections;
 /**
  * This is concrete implementation of the PipeFilter interface.
  **/
-public class CircularShifter extends Filter {
+public class Shifter extends Filter {
 
 
-    public CircularShifter(Pipe sink)
+    public Shifter(Pipe sink)
             throws IOException {
         super(sink);
     }
@@ -25,7 +25,6 @@ public class CircularShifter extends Filter {
         lines.readLines(in);
         Lines circulariseLines = circularShift(lines);
         circulariseLines.write(out);
-        Main.strings[1] = String.join("\n", circulariseLines);
     }
 
     protected Lines  circularShift(Lines lines) throws IOException {

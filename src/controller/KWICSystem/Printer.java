@@ -1,5 +1,7 @@
 package controller.KWICSystem;
 
+import controller.Main;
+
 import java.io.IOException;
 import java.io.Writer;
 
@@ -10,14 +12,14 @@ import java.io.Writer;
  * pipe.  It writes the characters into a specified Writer (such as a
  * FileWriter).
  **/
-public class Sink extends Pipe {
+public class Printer extends Pipe {
     protected Writer out;  // The stream to write data to
 
     /**
      * To create a WriterPipeSink, just specify what Writer characters
      * from the pipe should be written to
      **/
-    public Sink(Writer out) throws IOException {
+    public Printer(Writer out) throws IOException {
         super();  // Create a terminal Pipe with no sink attached.
         this.out = out;
     }
@@ -33,10 +35,17 @@ public class Sink extends Pipe {
             while((chars_read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, chars_read);
             }
+            //String output = out.toString();
+            //System.out.println(output);
         }
         catch (IOException e) {}
         // When done with the data, close the pipe and flush the Writer
-        finally { try {in.close(); out.flush(); } catch (IOException e) {} }
+        finally {
+            try {
+                in.close(); out.flush();
+            } catch (IOException e) {}
+        }
+
     }
 }
 

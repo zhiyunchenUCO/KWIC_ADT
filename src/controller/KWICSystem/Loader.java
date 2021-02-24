@@ -11,7 +11,7 @@ import java.io.Reader;
  * the source of data is the specified Reader object (such as a FileReader).
  **/
 
-public class Source extends Pipe {
+public class Loader extends Pipe {
 
     protected Reader in;  // The Reader we take data from
 
@@ -19,7 +19,7 @@ public class Source extends Pipe {
      * To create a Source, specify the Reader that data comes from
      * and the Pipe sink that it should be sent to.
      **/
-    public Source(Pipe sink, Reader in) throws IOException {
+    public Loader(Pipe sink, Reader in) throws IOException {
         super(sink);
         this.in = in;
     }

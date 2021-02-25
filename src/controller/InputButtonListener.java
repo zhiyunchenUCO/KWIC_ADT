@@ -1,6 +1,6 @@
 package controller;
 
-
+import controller.KWICSystem.KWIC;
 import controller.KWICSystem.Pipeline;
 import view.MyWindow;
 
@@ -27,7 +27,8 @@ public class InputButtonListener implements ActionListener {
 
         String inputString = inputArea.getText();
         try {
-            String outputString = Pipeline.transform(inputString);
+            KWIC pipeline = new Pipeline();
+            String outputString = pipeline.transform(inputString);
             outputArea.setText(outputString);
 
         } catch (IOException ioException) {

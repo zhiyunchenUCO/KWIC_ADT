@@ -4,8 +4,6 @@ import controller.InputButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.io.Writer;
 
 public class MyWindow extends JFrame {
 

@@ -1,12 +1,10 @@
 package controller.KWICSystem;
 
-import controller.Main;
-
 import java.io.*;
 
-public class Pipeline {
+public class Pipeline implements KWIC{
 
-    public static String transform (String inputString) throws IOException {
+    public String transform (String inputString) throws IOException {
 
         //Create a Reader to read data from, and a Writer to send data to
         //Create an outputStream to hold the data

@@ -1,7 +1,5 @@
 package controller.KWICSystem;
 
-import controller.Main;
-
 import java.io.IOException;
 import java.io.Writer;
 

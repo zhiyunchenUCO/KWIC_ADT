@@ -1,7 +1,5 @@
 package controller.KWICSystem;
 
-import controller.Main;
-
 import java.io.*;
 import java.util.Collections;
 import java.util.Comparator;

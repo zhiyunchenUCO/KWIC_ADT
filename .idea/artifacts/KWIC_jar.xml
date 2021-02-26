@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="KWIC:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/KWIC_jar</output-path>
+    <root id="archive" name="KWIC.jar">
+      <element id="module-output" name="KWIC" />
+    </root>
+  </artifact>
+</component>

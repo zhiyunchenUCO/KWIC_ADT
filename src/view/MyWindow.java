@@ -1,7 +1,6 @@
 package view;
 
-import controller.KWICSystem.KWIC;
-import controller.KWICSystem.Pipeline;
+import controller.KWICSystem.MasterControl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +11,12 @@ import java.io.IOException;
 public class MyWindow extends JFrame {
 
     private JTextArea inputArea = new JTextArea("Type in your lines here");
+    private JTextArea noiseWordArea = new JTextArea();
     private JTextArea outputArea = new JTextArea();
     private JButton inputButton = new JButton("Input");
     private JButton clearButton = new JButton("Clear");
+    private JLabel noiseWordsLabel = new JLabel("noise words");
+    private JLabel outputLabel = new JLabel("Output");
 
     public void init() {
         setSize(700, 500);
@@ -30,23 +32,36 @@ public class MyWindow extends JFrame {
         leftPanel.add(inputButton);
         leftPanel.add(Box.createRigidArea(new Dimension(10, 30)));
         leftPanel.add(clearButton);
+        leftPanel.add(Box.createRigidArea(new Dimension(10, 30)));
+        leftPanel.add(noiseWordsLabel);
+        leftPanel.add(Box.createRigidArea(new Dimension(10, 100)));
+        leftPanel.add(outputLabel);
 
         cp.add(BorderLayout.WEST, leftPanel);
 
         // Add two areas to the center of the display window
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(2, 1));
+        mainPanel.setLayout(new GridLayout(3, 1));
         JScrollPane scrollPane1 = new JScrollPane(
                 inputArea,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        mainPanel.add(scrollPane1);
+
+        noiseWordArea.setText("a an the and or of to be is in out by as at off");
         JScrollPane scrollPane2 = new JScrollPane(
+                noiseWordArea,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        //noiseWordArea.setEditable(false);
+        mainPanel.add(scrollPane2);
+
+        JScrollPane scrollPane3 = new JScrollPane(
                 outputArea,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        mainPanel.add(scrollPane1);
         outputArea.setEditable(false);
-        mainPanel.add(scrollPane2);
+        mainPanel.add(scrollPane3);
 
         cp.add(BorderLayout.CENTER, mainPanel);
 
@@ -55,9 +70,10 @@ public class MyWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String inputString = inputArea.getText();
+                String noiseWords = noiseWordArea.getText();
                 try {
-                    KWIC pipeline = new Pipeline();
-                    String outputString = pipeline.transform(inputString);
+                    MasterControl masterControl = new MasterControl();
+                    String outputString = masterControl.transform(inputString, noiseWords);
                     outputArea.setText(outputString);
 
                 } catch (IOException ioException) {

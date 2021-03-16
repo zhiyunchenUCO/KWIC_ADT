@@ -5,27 +5,69 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class Lines extends ArrayList<String> {
+public class Lines extends ArrayList<String>{
 
     public Lines() {
         super();
     }
 
-    public Lines readLines(Reader in) throws IOException {
+    public String getLine(int lineIndex, int charIndex) {
+        // Circular read a line, starting at a given char index
+        String line = this.get(lineIndex);
+
+        if (charIndex == 0) {
+            return  line;
+        }
+        int lineLength = line.length();
+        return line.substring(charIndex, lineLength) + " " + line.substring(0,charIndex);
+    }
+
+    public  void setLines(Reader in) throws IOException {
+
         String line = null;
         BufferedReader br = new BufferedReader(in);
 
-        while ((line = br.readLine()) != null) {
-            this.add(line);
+        try {
+            // Clean up the input line so that each word is spaced with a single whitespace
+            String[] words;
+            String lineString = "";
+            while ((line = br.readLine()) != null) {
+                words = line.split("\\s"); // split line into words with whitespaces
+                lineString = String.join(" ", words); // combine words into one string with a whitespace as spacer
+                this.add(lineString);
+            }
+            in.close();
         }
-        return this;
+        catch (IOException e) {}
     }
 
-    public void write(Writer out) throws IOException {
-        for (String sortedLine : this) {
-            out.write(sortedLine);
-            out.write("\n");
+    public ArrayList getWordIndicesPerLine(int lineIndex) {
+        if (lineIndex >= this.size()) {
+            return  null;
         }
+        ArrayList<int[]> wordIndices = new ArrayList<int[]>();
+        String line = this.get(lineIndex);
+
+        int[] startWordIndex = new int[]{lineIndex, 0};
+        wordIndices.add(startWordIndex);
+
+        for (int i=0; i<line.length(); i++) {
+            if (line.charAt(i) == ' ') {
+                wordIndices.add(new int[]{lineIndex, i+1});
+            }
+        }
+        return  wordIndices;
     }
+
+    public ArrayList getAllWordIndices() {
+        ArrayList<int[]> allWordIndices = new ArrayList<int[]>();
+        for (int i = 0; i < this.size(); i++) {
+            ArrayList<int[]> wordIndices = getWordIndicesPerLine(i);
+            allWordIndices.addAll(wordIndices);
+        }
+        return allWordIndices;
+    }
+
 }

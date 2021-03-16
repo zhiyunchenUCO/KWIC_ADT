@@ -2,6 +2,9 @@ package controller.KWICSystem;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Optional;
 
 /**
  * This class is a sink for data from a pipe of threads.  It can be connected
@@ -10,40 +13,46 @@ import java.io.Writer;
  * pipe.  It writes the characters into a specified Writer (such as a
  * FileWriter).
  **/
-public class Printer extends Pipe {
-    protected Writer out;  // The stream to write data to
+public class Printer {
 
-    /**
-     * To create a WriterPipeSink, just specify what Writer characters
-     * from the pipe should be written to
-     **/
-    public Printer(Writer out) throws IOException {
-        super();  // Create a terminal Pipe with no sink attached.
-        this.out = out;
+    Lines lines;
+    ArrayList<int[]> sortedWordIndices;
+    ArrayList<String> noiseWordsList = new ArrayList<>();
+
+    public Printer(Sorter alphabetizer, String noiseWords) {
+        lines = alphabetizer.getLines();
+        sortedWordIndices = alphabetizer.getSortedWordIndices();
+
+        String[] noiseWordArray = noiseWords.split("\\s");
+        for (int i = 0; i < noiseWordArray.length; i++) {
+            noiseWordsList.add(noiseWordArray[i].toLowerCase());
+        }
+        System.out.println(noiseWordsList);
     }
-
-    /**
-     * This is the thread body for this sink.  When the pipe is started, it
-     * copies characters from the pipe into the specified Writer.
-     **/
-    public void run() {
-        try {
-            char[] buffer = new char[1024];
-            int chars_read;
-            while((chars_read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, chars_read);
+    private boolean startsWithANoiseWord(String line) {
+        for (int i = 0; i < noiseWordsList.size(); i++) {
+            if (line.toLowerCase().startsWith(noiseWordsList.get(i))) {
+                return true;
             }
-            //String output = out.toString();
-            //System.out.println(output);
         }
-        catch (IOException e) {}
-        // When done with the data, close the pipe and flush the Writer
-        finally {
-            try {
-                in.close(); out.flush();
-            } catch (IOException e) {}
-        }
-
+        return  false;
     }
+
+    public String print() {
+        String outputString = "";
+        for (int i = 0; i < sortedWordIndices.size(); i++) {
+            int lineIndex = sortedWordIndices.get(i)[0];
+            int charIndex = sortedWordIndices.get(i)[1];
+            String line = lines.getLine(lineIndex, charIndex);
+            //System.out.println(line);
+            if (!startsWithANoiseWord(line)) {
+                //System.out.println("This line does not start with a noise word");
+                outputString += line + '\n';
+            }
+
+        }
+        return  outputString;
+    }
+
 }
 

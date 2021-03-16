@@ -1,6 +1,8 @@
 package controller.KWICSystem;
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -8,35 +10,63 @@ import java.util.Comparator;
  * This is another implementation of Filter.  It implements the
  * sorting of lines according to a custom-defined sorting algorithm.
  **/
-public class Sorter extends Filter {
-    /** Constructor just calls superclass */
-    public Sorter(Pipe sink) throws IOException { super(sink); }
+public class Sorter {
+
+    ArrayList<int[]> sortedWordIndices;
+    Lines lines;
+
+    public Sorter(Shifter circularShifter) {
+        // Retrieve lines from circular shifter
+        lines = circularShifter.getLines();
+
+        // Deep copy the word indices from circular shifter
+        ArrayList<int[]> wordIndices = circularShifter.getWordIndices();
+        sortedWordIndices = new ArrayList<>();
+        for (int[] index : wordIndices) {
+            sortedWordIndices.add(index.clone());
+        }
+
+    }
+    public void sort() throws IOException {
+
+        Collections.sort(sortedWordIndices, new IntArrayComparator(lines));
+    }
+
+    public ArrayList<int[]> getSortedWordIndices() {
+        return sortedWordIndices;
+    }
+
+    public Lines getLines() {
+        return lines;
+    }
 
     /**
-     * Do the filtering, using a custom-defined arraylist (lines) to accept lines read from
-     * the Reader, using a custom-defined comparator to sort the lines,
-     * and then sending those lines back out to the Writer.
+     * This method defines a comparator that compares two indices based on the
+     * strings they refer to.
      **/
-    public void filter(Reader in, Writer out) throws IOException {
-
-        lines.readLines(in);
-
-        Collections.sort(lines, new StringComparator());
-
-        lines.write(out);
+    private class IntArrayComparator implements Comparator<int[]>{
+        Lines lines;
+        public IntArrayComparator(Lines lines) {
+            this.lines = lines;
+        }
+        public int compare(int[] intArray1, int[] intArray2) {
+            String s1 = lines.getLine(intArray1[0], intArray1[1]);
+            String s2 = lines.getLine(intArray2[0], intArray2[1]);
+            StringComparator stringComparator = new StringComparator();
+            return stringComparator.compare(s1, s2);
+        }
     }
 
     /**
      * This method defines a comparator that compares two strings based on their
      * alphabetic content(sorting algorithm is a<A<b<B<...<z<Z).
      **/
-
     private class StringComparator implements Comparator<String> {
         String alphabetString = " aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
+        Lines lines;
 
 
         public int compare(String s1, String s2) {
-
             // If the two strings are identical, then return 0.
             if (s1.equals(s2)) return 0;
 

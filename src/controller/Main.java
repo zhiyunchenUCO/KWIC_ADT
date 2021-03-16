@@ -1,5 +1,6 @@
 package controller;
 
+import controller.KWICSystem.MasterControl;
 import view.MyWindow;
 
 import javax.swing.*;
@@ -12,5 +13,14 @@ public class Main {
         win.init();
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         win.setVisible(true);
+
+        //test();
+
+    }
+    static void test() throws IOException {
+        String inputString = "Itzy Bitzy Spider \nitzy bitzy spider \n";
+        String noiseWords = "the a";
+        MasterControl masterControl = new MasterControl();
+        masterControl.transform(inputString, noiseWords);
     }
 }

@@ -46,8 +46,8 @@ public class Sorter {
             this.lines = lines;
         }
         public int compare(int[] intArray1, int[] intArray2) {
-            String s1 = lines.getLine(intArray1[0], intArray1[1]);
-            String s2 = lines.getLine(intArray2[0], intArray2[1]);
+            String s1 = lines.getCirculatedLine(intArray1[0], intArray1[1]);
+            String s2 = lines.getCirculatedLine(intArray2[0], intArray2[1]);
             StringComparator stringComparator = new StringComparator();
             return stringComparator.compare(s1, s2);
         }

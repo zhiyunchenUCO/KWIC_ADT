@@ -11,7 +11,6 @@ public class Shifter {
     public void setup(LineStorage lines) throws IOException {
 
         this.lines = lines;
-        //wordIndices = getAllWordIndices();
         setWordIndices();
     }
 
@@ -23,37 +22,8 @@ public class Shifter {
         return lines;
     }
 
-    private ArrayList getWordPositionsPerLine(int lineIndex) {
-        if (lineIndex >= lines.size()) {
-            return  null;
-        }
-        ArrayList<int[]> wordIndices = new ArrayList<int[]>();
-        String line = lines.get(lineIndex);
-
-        int[] startWordIndex = new int[]{lineIndex, 0};
-        wordIndices.add(startWordIndex);
-
-        for (int i=0; i<line.length(); i++) {
-            if (line.charAt(i) == ' ') {
-                wordIndices.add(new int[]{lineIndex, i+1});
-            }
-        }
-        return  wordIndices;
-    }
-
-    public ArrayList getAllWordIndices() {
-        ArrayList<int[]> allWordIndices = new ArrayList<int[]>();
+    private void setWordIndices() {
         for (int i = 0; i < lines.size(); i++) {
-            ArrayList<int[]> wordIndices = getWordPositionsPerLine(i);
-            allWordIndices.addAll(wordIndices);
-        }
-        return allWordIndices;
-    }
-
-    public void setWordIndices() {
-        for (int i = 0; i < lines.size(); i++) {
-            //ArrayList<int[]> wordPositions = getWordPositionsPerLine(i);
-            //wordIndices.addAll(wordPositions);
             String line = lines.get(i);
 
             // Add the position of the first word to word indices

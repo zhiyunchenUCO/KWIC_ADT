@@ -11,7 +11,11 @@ public class LineStorage extends ArrayList<String>{
         super();
     }
 
-    public String getLine(int lineIndex, int charIndex) {
+    public String getLine(int lineIndex) {
+        return this.get(lineIndex);
+    }
+
+    public String getCirculatedLine(int lineIndex, int charIndex) {
         // Circular read a line, starting at a given char index
         String line = this.get(lineIndex);
 
@@ -40,32 +44,4 @@ public class LineStorage extends ArrayList<String>{
         }
         catch (IOException e) {}
     }
-
-    private ArrayList getWordIndicesPerLine(int lineIndex) {
-        if (lineIndex >= this.size()) {
-            return  null;
-        }
-        ArrayList<int[]> wordIndices = new ArrayList<int[]>();
-        String line = this.get(lineIndex);
-
-        int[] startWordIndex = new int[]{lineIndex, 0};
-        wordIndices.add(startWordIndex);
-
-        for (int i=0; i<line.length(); i++) {
-            if (line.charAt(i) == ' ') {
-                wordIndices.add(new int[]{lineIndex, i+1});
-            }
-        }
-        return  wordIndices;
-    }
-
-    public ArrayList getAllWordIndices() {
-        ArrayList<int[]> allWordIndices = new ArrayList<int[]>();
-        for (int i = 0; i < this.size(); i++) {
-            ArrayList<int[]> wordIndices = getWordIndicesPerLine(i);
-            allWordIndices.addAll(wordIndices);
-        }
-        return allWordIndices;
-    }
-
 }

@@ -20,7 +20,7 @@ public class Output {
         for (int i = 0; i < sortedWordIndices.size(); i++) {
             int lineIndex = sortedWordIndices.get(i)[0];
             int charIndex = sortedWordIndices.get(i)[1];
-            String line = lines.getLine(lineIndex, charIndex);
+            String line = lines.getCirculatedLine(lineIndex, charIndex);
             if (!startsWithANoiseWord(line)) {
                 outputString += line + '\n';
             }

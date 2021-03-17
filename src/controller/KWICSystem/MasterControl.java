@@ -2,8 +2,7 @@ package controller.KWICSystem;
 
 import java.io.*;
 
-public class KWICControl {
-
+public class MasterControl implements Control{
 
     public String transform (String inputString, String noiseWords) throws IOException {
 
@@ -11,25 +10,25 @@ public class KWICControl {
         java.io.Reader in = new BufferedReader(new StringReader(inputString));
 
         // Create a new line storage to store input data
-        Lines lines = new Lines();
+        LineStorage lines = new LineStorage();
 
         // Call the input to read and store inputString
-        Reader input = new Reader();
+        Input input = new StringInput();
         input.read(in);
         input.store(lines);
 
         // Call the circular shifter to setup a word index list
-        Shifter circularShifter = new Shifter();
+        Shifter circularShifter = new CircularShifter();
         circularShifter.setup(lines);
 
         // Call the alphabetizer to sort the word index list
-        Sorter alphabetizer = new Sorter();
+        Sorter alphabetizer = new Alphabetizer();
         alphabetizer.sort(circularShifter);
 
         // Call the output to print final lines
-        Printer output = new Printer();
+        Output output = new StringOutput();
         String outputString = output.print(alphabetizer, noiseWords);
-        System.out.println(lines.getLines());
+        System.out.println(outputString);
         System.out.println("Done.");
 
         return outputString;

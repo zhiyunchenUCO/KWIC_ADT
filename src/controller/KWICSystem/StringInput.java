@@ -3,7 +3,7 @@ package controller.KWICSystem;
 import java.io.IOException;
 
 
-public class Reader {
+public class StringInput implements Input{
 
     protected java.io.Reader in;  // The Reader we take data from
 

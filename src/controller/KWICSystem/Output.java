@@ -5,25 +5,14 @@ import java.util.ArrayList;
 
 public class Output {
 
-    Lines lines;
+    LineStorage lines;
     ArrayList<int[]> sortedWordIndices;
     String[] noiseWordArray;
 
-    public Output(Sorter alphabetizer) {
+    public String print(Sorter alphabetizer, String noiseWords) {
+
         lines = alphabetizer.getLines();
         sortedWordIndices = alphabetizer.getSortedWordIndices();
-    }
-
-    private boolean startsWithANoiseWord(String line) {
-        for (int i = 0; i < noiseWordArray.length; i++) {
-            if (line.toLowerCase().startsWith(noiseWordArray[i])) {
-                return true;
-            }
-        }
-        return  false;
-    }
-
-    public String print(String noiseWords) {
 
         noiseWordArray = noiseWords.split("\\s");
 
@@ -40,5 +29,14 @@ public class Output {
         return  outputString;
     }
 
+    private boolean startsWithANoiseWord(String line) {
+        for (int i = 0; i < noiseWordArray.length; i++) {
+            if (line.toLowerCase().startsWith(noiseWordArray[i] + " ")
+                    || line.toLowerCase() == noiseWordArray[i]) {
+                return true;
+            }
+        }
+        return  false;
+    }
 }
 

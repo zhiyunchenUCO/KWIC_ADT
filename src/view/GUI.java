@@ -8,7 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class MyWindow extends JFrame {
+public class GUI extends JFrame {
+
+    private MasterControl masterControl = new MasterControl();
 
     private JTextArea inputArea = new JTextArea("Type in your lines here");
     private JTextArea noiseWordArea = new JTextArea();
@@ -72,7 +74,6 @@ public class MyWindow extends JFrame {
                 String inputString = inputArea.getText();
                 String noiseWords = noiseWordArea.getText();
                 try {
-                    MasterControl masterControl = new MasterControl();
                     String outputString = masterControl.transform(inputString, noiseWords);
                     outputArea.setText(outputString);
 

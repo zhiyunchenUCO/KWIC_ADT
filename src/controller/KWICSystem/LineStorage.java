@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 
-public class Lines extends ArrayList<String>{
+public class LineStorage extends ArrayList<String>{
 
-    public Lines() {
+    public LineStorage() {
         super();
     }
 
@@ -41,7 +41,7 @@ public class Lines extends ArrayList<String>{
         catch (IOException e) {}
     }
 
-    public ArrayList getWordIndicesPerLine(int lineIndex) {
+    private ArrayList getWordIndicesPerLine(int lineIndex) {
         if (lineIndex >= this.size()) {
             return  null;
         }

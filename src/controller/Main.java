@@ -1,7 +1,7 @@
 package controller;
 
 import controller.KWICSystem.MasterControl;
-import view.MyWindow;
+import view.GUI;
 
 import javax.swing.*;
 import java.io.*;
@@ -9,7 +9,7 @@ import java.io.*;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        MyWindow win = new MyWindow();
+        GUI win = new GUI();
         win.init();
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         win.setVisible(true);

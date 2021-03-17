@@ -4,6 +4,10 @@ import java.io.*;
 
 public class MasterControl{
 
+    Input input = new Input();
+    Shifter circularShifter = new Shifter();
+    Sorter alphabetizer = new Sorter();
+    Output output = new Output();
 
     public String transform (String inputString, String noiseWords) throws IOException {
 
@@ -11,24 +15,21 @@ public class MasterControl{
         Reader in = new BufferedReader(new StringReader(inputString));
 
         // Create a new line storage to store input data
-        Lines lines = new Lines();
+        LineStorage lines = new LineStorage();
 
-        // Create and call the input to read and store inputString
-        Input input = new Input();
+        // Call the input to read and store inputString
+
         input.read(in);
         input.store(lines);
 
-        // Create and call the circular shifter to setup a word index list
-        Shifter circularShifter = new Shifter();
+        // Call the circular shifter to setup a word index list
         circularShifter.setup(lines);
 
-        // Create and call the alphabetizer to sort the word index list
-        Sorter alphabetizer = new Sorter(circularShifter);
-        alphabetizer.sort();
+        // Call the alphabetizer to sort the word index list
+        alphabetizer.sort(circularShifter);
 
-        // Create and call the output to print final lines
-        Output output = new Output(alphabetizer);
-        String outputString = output.print(noiseWords);
+        // Call the output to print final lines
+        String outputString = output.print(alphabetizer, noiseWords);
         System.out.println(outputString);
         System.out.println("Done.");
 

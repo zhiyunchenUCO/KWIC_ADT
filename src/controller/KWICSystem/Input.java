@@ -12,7 +12,7 @@ public class Input {
         this.in = in;
     }
 
-    public void store(Lines lines) throws IOException {
+    public void store(LineStorage lines) throws IOException {
         lines.setLines(in);
     }
 }

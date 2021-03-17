@@ -12,9 +12,9 @@ import java.util.Comparator;
 public class Sorter {
 
     ArrayList<int[]> sortedWordIndices;
-    Lines lines;
+    LineStorage lines;
 
-    public Sorter(Shifter circularShifter) {
+    public void sort(Shifter circularShifter) throws IOException {
         // Retrieve lines from circular shifter
         lines = circularShifter.getLines();
 
@@ -25,9 +25,6 @@ public class Sorter {
             sortedWordIndices.add(index.clone());
         }
 
-    }
-    public void sort() throws IOException {
-
         Collections.sort(sortedWordIndices, new IntArrayComparator(lines));
     }
 
@@ -35,7 +32,7 @@ public class Sorter {
         return sortedWordIndices;
     }
 
-    public Lines getLines() {
+    public LineStorage getLines() {
         return lines;
     }
 
@@ -44,8 +41,8 @@ public class Sorter {
      * strings they refer to.
      **/
     private class IntArrayComparator implements Comparator<int[]>{
-        Lines lines;
-        public IntArrayComparator(Lines lines) {
+        LineStorage lines;
+        public IntArrayComparator(LineStorage lines) {
             this.lines = lines;
         }
         public int compare(int[] intArray1, int[] intArray2) {
@@ -62,7 +59,7 @@ public class Sorter {
      **/
     private class StringComparator implements Comparator<String> {
         String alphabetString = " aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
-        Lines lines;
+        LineStorage lines;
 
 
         public int compare(String s1, String s2) {

@@ -39,7 +39,7 @@ public class MyWindow extends JFrame {
 
         cp.add(BorderLayout.WEST, leftPanel);
 
-        // Add two areas to the center of the display window
+        // Add three areas to the center of the display window
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(3, 1));
         JScrollPane scrollPane1 = new JScrollPane(

@@ -2,7 +2,6 @@ package controller.KWICSystem;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Shifter {
 

@@ -1,13 +1,13 @@
 package controller.KWICSystem;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class MasterControl{
 
+
     public String transform (String inputString, String noiseWords) throws IOException {
 
-        //Create a Reader to read data from, and a Writer to send data to
+        //Create a Reader to read data from
         Reader in = new BufferedReader(new StringReader(inputString));
 
         // Create a new line storage to store input data
@@ -27,8 +27,8 @@ public class MasterControl{
         alphabetizer.sort();
 
         // Create and call the output to print final lines
-        Printer output = new Printer(alphabetizer, noiseWords);
-        String outputString = output.print();
+        Output output = new Output(alphabetizer);
+        String outputString = output.print(noiseWords);
         System.out.println(outputString);
         System.out.println("Done.");
 

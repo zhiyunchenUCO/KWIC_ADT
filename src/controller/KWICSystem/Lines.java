@@ -5,25 +5,20 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 
-public class LineStorage extends ArrayList<String>{
+public class Lines {
 
-    public LineStorage() {
-        super();
-    }
+    private ArrayList<String> lines = new ArrayList<>();
 
     public String getLine(int lineIndex) {
-        return this.get(lineIndex);
+        return lines.get(lineIndex);
     }
 
-    public String getCirculatedLine(int lineIndex, int charIndex) {
-        // Circular read a line, starting at a given char index
-        String line = this.get(lineIndex);
+    public ArrayList<String> getLines() {
+        return  lines;
+    }
 
-        if (charIndex == 0) {
-            return  line;
-        }
-        int lineLength = line.length();
-        return line.substring(charIndex, lineLength) + " " + line.substring(0,charIndex);
+    public int getLineCount() {
+        return lines.size();
     }
 
     public  void setLines(Reader in) throws IOException {
@@ -38,7 +33,7 @@ public class LineStorage extends ArrayList<String>{
             while ((line = br.readLine()) != null) {
                 words = line.split("\\s"); // split line into words with whitespaces
                 lineString = String.join(" ", words); // combine words into one string with a whitespace as spacer
-                this.add(lineString);
+                lines.add(lineString);
             }
             in.close();
         }

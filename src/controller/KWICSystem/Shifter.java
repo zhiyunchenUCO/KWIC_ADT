@@ -1,30 +1,23 @@
 package controller.KWICSystem;
 
-import java.io.*;
 import java.util.ArrayList;
 
 public class Shifter {
 
-    LineStorage lines;
-    ArrayList<int[]> wordIndices = new ArrayList<>();
+    Lines lines;
+    ArrayList<int[]> wordIndices;
 
-    public void setup(LineStorage lines) throws IOException {
+    public void setup(Lines lines) {
 
         this.lines = lines;
+        wordIndices = new ArrayList<>();
         setWordIndices();
     }
 
-    public ArrayList<int[]> getWordIndices() {
-        return  wordIndices;
-    }
-
-    public LineStorage getLines() {
-        return lines;
-    }
-
     private void setWordIndices() {
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
+
+        for (int i = 0; i < lines.getLineCount(); i++) {
+            String line = lines.getLine(i);
 
             // Add the position of the first word to word indices
             int[] startWordIndex = new int[]{i, 0};
@@ -39,4 +32,24 @@ public class Shifter {
         }
     }
 
+    public ArrayList<int[]> getWordIndices() {
+        return  wordIndices;
+    }
+
+    public String getCirculatedLine(int[] wordIndex) {
+        // Circular read a line, starting at a given char index
+        int lineIndex = wordIndex[0];
+        int charIndex = wordIndex[1];
+        String line = lines.getLine(lineIndex);
+
+        if (charIndex == 0) {
+            return  line;
+        }
+        int lineLength = line.length();
+        return line.substring(charIndex, lineLength) + " " + line.substring(0,charIndex);
+    }
+
+    public Lines getLines() {
+        return lines;
+    }
 }

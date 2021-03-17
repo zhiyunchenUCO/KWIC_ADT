@@ -11,12 +11,28 @@ import java.util.Comparator;
  **/
 public class Sorter {
 
+    Shifter circularShifter;
     ArrayList<int[]> sortedWordIndices;
-    LineStorage lines;
 
     public void sort(Shifter circularShifter) throws IOException {
-        // Retrieve lines from circular shifter
-        lines = circularShifter.getLines();
+        this.circularShifter = circularShifter;
+        setSortedWordIndices();
+    }
+
+    public ArrayList<int[]> getSortedWordIndices() {
+        return sortedWordIndices;
+    }
+
+    public Lines getLines() {
+        return circularShifter.getLines();
+    }
+
+    public String getCirculatedLine(int[] wordIndex) {
+        return circularShifter.getCirculatedLine(wordIndex);
+    }
+
+
+    private void setSortedWordIndices() {
 
         // Deep copy the word indices from circular shifter
         ArrayList<int[]> wordIndices = circularShifter.getWordIndices();
@@ -25,42 +41,32 @@ public class Sorter {
             sortedWordIndices.add(index.clone());
         }
 
-        Collections.sort(sortedWordIndices, new IntArrayComparator(lines));
+        Collections.sort(sortedWordIndices, new IntArrayComparator(circularShifter));
     }
 
-    public ArrayList<int[]> getSortedWordIndices() {
-        return sortedWordIndices;
-    }
-
-    public LineStorage getLines() {
-        return lines;
-    }
 
     /**
      * This method defines a comparator that compares two indices based on the
      * strings they refer to.
      **/
     private class IntArrayComparator implements Comparator<int[]>{
-        LineStorage lines;
-        public IntArrayComparator(LineStorage lines) {
-            this.lines = lines;
+        Shifter circularShifter;
+        public IntArrayComparator(Shifter circularShifter) {
+            this.circularShifter = circularShifter;
         }
         public int compare(int[] intArray1, int[] intArray2) {
-            String s1 = lines.getCirculatedLine(intArray1[0], intArray1[1]);
-            String s2 = lines.getCirculatedLine(intArray2[0], intArray2[1]);
+            String s1 = circularShifter.getCirculatedLine(intArray1);
+            String s2 = circularShifter.getCirculatedLine(intArray2);
             StringComparator stringComparator = new StringComparator();
             return stringComparator.compare(s1, s2);
         }
     }
-
     /**
      * This method defines a comparator that compares two strings based on their
      * alphabetic content(sorting algorithm is a<A<b<B<...<z<Z).
      **/
     private class StringComparator implements Comparator<String> {
         String alphabetString = " aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
-        LineStorage lines;
-
 
         public int compare(String s1, String s2) {
             // If the two strings are identical, then return 0.

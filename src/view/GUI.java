@@ -1,6 +1,6 @@
 package view;
 
-import controller.KWICSystem.MasterControl;
+import controller.KWICSystem.KWICControl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class GUI extends JFrame {
 
-    private MasterControl masterControl = new MasterControl();
+    private KWICControl KWICControl = new KWICControl();
 
     private JTextArea inputArea = new JTextArea("Type in your lines here");
     private JTextArea noiseWordArea = new JTextArea();
@@ -74,7 +74,7 @@ public class GUI extends JFrame {
                 String inputString = inputArea.getText();
                 String noiseWords = noiseWordArea.getText();
                 try {
-                    String outputString = masterControl.transform(inputString, noiseWords);
+                    String outputString = KWICControl.transform(inputString, noiseWords);
                     outputArea.setText(outputString);
 
                 } catch (IOException ioException) {

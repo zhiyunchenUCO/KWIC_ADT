@@ -1,6 +1,6 @@
 package controller;
 
-import controller.KWICSystem.MasterControl;
+import controller.KWICSystem.KWICControl;
 import view.GUI;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class Main {
     static void test() throws IOException {
         String inputString = "Itzy Bitzy Spider \nitzy bitzy spider \n";
         String noiseWords = "the a";
-        MasterControl masterControl = new MasterControl();
-        masterControl.transform(inputString, noiseWords);
+        KWICControl KWICControl = new KWICControl();
+        KWICControl.transform(inputString, noiseWords);
     }
 }

@@ -10,8 +10,8 @@ import java.util.Comparator;
  **/
 public class Alphabetizer implements Sorter{
 
-    Shifter shifter;
-    ArrayList<int[]> sortedWordIndices;
+    private Shifter shifter;
+    private ArrayList<int[]> sortedWordIndices;
 
     public void sort(Shifter circularShifter) {
         this.shifter = circularShifter;

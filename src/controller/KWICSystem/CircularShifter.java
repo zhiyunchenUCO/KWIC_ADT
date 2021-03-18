@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class CircularShifter implements Shifter{
 
-    Lines lines;
-    ArrayList<int[]> wordIndices;
+    private Lines lines;
+    private ArrayList<int[]> wordIndices;
 
     public void setup(Lines lines) {
 

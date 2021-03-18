@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class StringOutput implements Output{
 
-    String[] noiseWordArray;
+    private String[] noiseWordArray;
 
     public String print(Sorter sorter, String noiseWords) {
 

@@ -1,6 +1,11 @@
 package controller.KWICSystem;
 
+import com.google.common.base.Stopwatch;
+
 import java.io.*;
+import java.util.Scanner;
+import com.google.common.base.Stopwatch;
+import java.util.concurrent.TimeUnit;
 
 public class MasterControl implements Controllable {
 
@@ -25,9 +30,52 @@ public class MasterControl implements Controllable {
         // Print results
         Outputtable output = new OutputHandler();
         String outputString = output.print(sorter, noiseWords);
-//        System.out.println(outputString);
-        System.out.println("Done.");
 
         return outputString;
     }
+
+    public String loadTestFile () {
+        String fileContent = "";
+//        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        try {
+            fileContent = new Scanner(new File("test_data/test-data-fu.txt")).useDelimiter("\\Z").next();
+        }
+        catch (IOException e) {
+            System.out.println("ERROR in loadTestFile(): " + e);
+        }
+        return fileContent;
+    }
+
+    public String[] runBenchmark (String inputString, String noiseWords) {
+        int iterations = 1000;
+        String[] results = new String[3];
+        String outputString = "";
+
+        // Start timing
+        Stopwatch stopwatch = Stopwatch.createStarted();
+
+        /* ... the code being measured starts ... */
+        for (int i = 0; i < iterations; i++) {
+            try {
+                outputString = transform(inputString, noiseWords);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+
+        /* ... the code being measured ends ... */
+        stopwatch.stop();
+
+        // get elapsed time, expressed in milliseconds
+        long timeElapsed = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+
+        results[0] = outputString;
+        results[1] = String.valueOf(iterations);
+        results[2] = String.valueOf(timeElapsed);
+
+        return results;
+    }
+
 }
+
+

@@ -2,45 +2,33 @@ package controller.KWICSystem;
 
 import java.util.ArrayList;
 
-public class CircularShifter implements Shifter{
+public class CircularShifter implements Shiftable {
 
     private Lines lines;
     private ArrayList<int[]> wordIndices;
 
-    public void setup(Lines lines) {
+    public void shift(Lines lines) {
 
         this.lines = lines;
         wordIndices = new ArrayList<>();
-        setWordIndices();
+        createWordIndices();
     }
 
-    public ArrayList<int[]> getWordIndices() {
-        return  wordIndices;
+    public ArrayList<int[]> getShiftedIndices() {
+        return wordIndices;
     }
 
-    public String getCirculatedLine(int[] wordIndex) {
-        // Circular read a line, starting at a given char index
-        int lineIndex = wordIndex[0];
-        int charIndex = wordIndex[1];
-        String line = lines.getLine(lineIndex);
+    private void createWordIndices() {
 
-        if (charIndex == 0) {
-            return  line;
-        }
-        int lineLength = line.length();
-        return line.substring(charIndex, lineLength) + " " + line.substring(0,charIndex);
-    }
-
-    private void setWordIndices() {
-
+        // Cycle through each line
         for (int i = 0; i < lines.getLineCount(); i++) {
             String line = lines.getLine(i);
 
-            // Add the position of the first word to word indices
-            int[] startWordIndex = new int[]{i, 0};
-            wordIndices.add(startWordIndex);
+            // Add line number and position of the first char of first word
+            int[] startWordIndices = new int[]{i, 0};
+            wordIndices.add(startWordIndices);
 
-            // Add positions of the following words to word indices
+            // Add line number and positions of first char of each remaining word
             for (int j=0; j<line.length(); j++) {
                 if (line.charAt(j) == ' ') {
                     wordIndices.add(new int[]{i, j+1});
@@ -49,5 +37,19 @@ public class CircularShifter implements Shifter{
         }
     }
 
+    public String getShiftedLine(int[] wordIndices) {
 
+        int lineIndex = wordIndices[0];
+        int charIndex = wordIndices[1];
+
+        String line = lines.getLine(lineIndex);
+
+        if (charIndex == 0) { // Return original line
+            return line;
+        }
+        else { // Return shifted line
+            int lineLength = line.length();
+            return line.substring(charIndex, lineLength) + " " + line.substring(0, charIndex);
+        }
+    }
 }

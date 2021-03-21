@@ -2,10 +2,9 @@ package controller.KWICSystem;
 
 import java.io.IOException;
 
+public class InputHandler implements Inputtable {
 
-public class StringInput implements Input{
-
-    private java.io.Reader in;  // The Reader we take data from
+    private java.io.Reader in;
 
     public void read(java.io.Reader in) {
         this.in = in;

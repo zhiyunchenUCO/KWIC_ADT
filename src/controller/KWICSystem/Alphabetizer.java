@@ -4,65 +4,66 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-/**
- * This is another implementation of Filter.  It implements the
- * sorting of lines according to a custom-defined sorting algorithm.
- **/
-public class Alphabetizer implements Sorter{
+public class Alphabetizer implements Sortable {
 
-    private Shifter shifter;
+    private Shiftable shifter;
     private ArrayList<int[]> sortedWordIndices;
 
-    public void sort(Shifter circularShifter) {
-        this.shifter = circularShifter;
-        setSortedWordIndices();
+    public void sort(Shiftable shifter) {
+        this.shifter = shifter;
+        createSortedWordIndices();
     }
 
-    public ArrayList<int[]> getSortedWordIndices() {
-        return sortedWordIndices;
-    }
+    private void createSortedWordIndices() {
 
-    public String getCirculatedLine(int[] wordIndex) {
-        return shifter.getCirculatedLine(wordIndex);
-    }
-
-    private void setSortedWordIndices() {
-
-        // Deep copy the word indices from circular shifter
-        ArrayList<int[]> wordIndices = shifter.getWordIndices();
+        // Copy the shifted word indices for creating sorted word indices
+        ArrayList<int[]> shiftedWordIndices = shifter.getShiftedIndices();
         sortedWordIndices = new ArrayList<>();
-        for (int[] index : wordIndices) {
+
+        for (int[] index : shiftedWordIndices) {
             sortedWordIndices.add(index.clone());
         }
 
         Collections.sort(sortedWordIndices, new IntArrayComparator(shifter));
     }
 
+    public ArrayList<int[]> getSortedWordIndices() {
+        return sortedWordIndices;
+    }
+
+    public String getLine(int[] wordIndex) {
+        return shifter.getShiftedLine(wordIndex);
+    }
 
     /**
      * This method defines a comparator that compares two indices based on the
-     * strings they refer to.
+     * strings they refer to
      **/
     private class IntArrayComparator implements Comparator<int[]>{
-        Shifter shifter;
-        public IntArrayComparator(Shifter shifter) {
+        Shiftable shifter;
+
+        public IntArrayComparator(Shiftable shifter) {
             this.shifter = shifter;
         }
+
         public int compare(int[] intArray1, int[] intArray2) {
-            String s1 = shifter.getCirculatedLine(intArray1);
-            String s2 = shifter.getCirculatedLine(intArray2);
+            String s1 = shifter.getShiftedLine(intArray1);
+            String s2 = shifter.getShiftedLine(intArray2);
+//            System.out.println("compare: " + s1 + " to " + s2);
             StringComparator stringComparator = new StringComparator();
             return stringComparator.compare(s1, s2);
         }
     }
+
     /**
      * This method defines a comparator that compares two strings based on their
      * alphabetic content(sorting algorithm is a<A<b<B<...<z<Z).
      **/
     private class StringComparator implements Comparator<String> {
-        String alphabetString = " aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
+        String sortingKey = " aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
 
         public int compare(String s1, String s2) {
+
             // If the two strings are identical, then return 0.
             if (s1.equals(s2)) return 0;
 
@@ -71,14 +72,15 @@ public class Alphabetizer implements Sorter{
             int minLength = Math.min(s1.length(), s2.length());
 
             for (int i=0; i<minLength; i++) {
-                int s1Index = alphabetString.indexOf(s1.charAt(i));
-                int s2Index = alphabetString.indexOf(s2.charAt(i));
+                int s1Index = sortingKey.indexOf(s1.charAt(i));
+                int s2Index = sortingKey.indexOf(s2.charAt(i));
                 if (s1Index < s2Index) {
                     return -1;
                 } else if (s1Index > s2Index) {
                     return 1;
                 }
             }
+
             // The shorter string is smaller.
             if (s1.length() < s2.length()) return -1;
             else return 1;

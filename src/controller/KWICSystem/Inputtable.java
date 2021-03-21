@@ -2,7 +2,7 @@ package controller.KWICSystem;
 
 import java.io.IOException;
 
-public interface Input {
+public interface Inputtable {
     void read(java.io.Reader in);
     void store(Lines lines) throws IOException;
 }

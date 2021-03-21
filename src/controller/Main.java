@@ -20,7 +20,7 @@ public class Main {
     static void test() throws IOException {
         String inputString = "Itzy Bitzy Spider \nitzy bitzy spider \n";
         String noiseWords = "the a";
-        MasterControl MasterControl = new MasterControl();
-        MasterControl.transform(inputString, noiseWords);
+        MasterControl masterControl = new MasterControl();
+        masterControl.transform(inputString, noiseWords);
     }
 }

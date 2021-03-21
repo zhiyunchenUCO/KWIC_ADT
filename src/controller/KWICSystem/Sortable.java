@@ -2,9 +2,9 @@ package controller.KWICSystem;
 
 import java.util.ArrayList;
 
-public interface Sorter {
+public interface Sortable {
 
-    void sort(Shifter shifter);
+    void sort(Shiftable shifter);
     ArrayList<int[]> getSortedWordIndices();
-    String getCirculatedLine(int[] wordIndex);
+    String getLine(int[] wordIndex);
 }

@@ -4,8 +4,8 @@ import com.google.common.base.Stopwatch;
 
 import java.io.*;
 import java.util.Scanner;
-import com.google.common.base.Stopwatch;
 import java.util.concurrent.TimeUnit;
+import com.google.common.base.Stopwatch;
 
 public class MasterControl implements Controllable {
 

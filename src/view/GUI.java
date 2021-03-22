@@ -30,8 +30,7 @@ public class GUI extends JFrame {
         setSize(700, 500);
 //        setLocation(200, 100);
         setLocationRelativeTo(null);
-//        setAlwaysOnTop(true);
-        setTitle("KWIC System");
+        setTitle("KWIC System (Shared Data/OO)");
 
         Container cp = getContentPane();
 
@@ -41,52 +40,18 @@ public class GUI extends JFrame {
 
         leftPanel.add(Box.createRigidArea(new Dimension(10, 20)));
         leftPanel.add(processButton);
-
         leftPanel.add(Box.createRigidArea(new Dimension(10, 20)));
         leftPanel.add(clearButton);
-
         leftPanel.add(Box.createRigidArea(new Dimension(10, 20)));
         leftPanel.add(loadButton);
-
         leftPanel.add(Box.createRigidArea(new Dimension(10, 20)));
         leftPanel.add(testButton);
 
-//        leftPanel.add(Box.createRigidArea(new Dimension(10, 20)));
-//        leftPanel.add(noiseWordsLabel);
-
-//        leftPanel.add(Box.createRigidArea(new Dimension(10, 100)));
-//        leftPanel.add(outputLabel);
-
         cp.add(BorderLayout.WEST, leftPanel);
-
-
-
-//        JPanel rightPanel = new JPanel();
-////        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-////        rightPanel.add(Box.createRigidArea(new Dimension(10, 20)));
-//
-//        // Add noise words field
-//        noiseWordArea.setText("a an the and or of to be is in out by as at off");
-//        JScrollPane noiseWordPane = new JScrollPane(
-//                noiseWordArea,
-//                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-//                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//        //noiseWordArea.setEditable(false);
-//        rightPanel.add(noiseWordPane);
-//        cp.add(BorderLayout.EAST, rightPanel);
-////        rightPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-////        rightPanel.add(Box.createRigidArea(new Dimension(10, 20)));
-////        rightPanel.add(noiseWordsLabel);
-//
-//
-
-
 
         // Add three input fields to main panel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(3, 1));
-//        mainPanel.setLayout(new GridLayout(2, 1));
-
 
         // Add input field
         JScrollPane inputPane = new JScrollPane(
@@ -112,7 +77,6 @@ public class GUI extends JFrame {
         outputArea.setEditable(false);
         mainPanel.add(outputPane);
 
-//        cp.add(BorderLayout.CENTER, mainPanel);
         cp.add(BorderLayout.CENTER, mainPanel);
 
         // processButton handling
